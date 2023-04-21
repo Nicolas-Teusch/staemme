@@ -1,0 +1,147 @@
+Die folgenden Globalen Objekte könnten interessant sein
+
+unit_managers
+unit_build_block
+
+
+
+
+/*
+let game_data = {
+    "player": {
+        "id": 1577335560,
+        "name": "XellentDE",
+        "ally": "0",
+        "ally_level": null,
+        "ally_member_count": null,
+        "sitter": "0",
+        "sleep_start": "0",
+        "sitter_type": "normal",
+        "sleep_end": "0",
+        "sleep_last": "0",
+        "email_valid": "1",
+        "villages": "1",
+        "incomings": "0",
+        "supports": 0,
+        "knight_location": null,
+        "knight_unit": null,
+        "rank": 8723,
+        "points": "59",
+        "date_started": "1680854533",
+        "is_guest": "0",
+        "confirmation_skipping_hash": "",
+        "quest_progress": "0",
+        "points_formatted": "59",
+        "rank_formatted": "8<span class=\"grey\">.</span>723",
+        "pp": "2920",
+        "new_ally_application": 0,
+        "new_ally_invite": "0",
+        "new_buddy_request": "0",
+        "new_daily_bonus": "0",
+        "new_forum_post": 0,
+        "new_post_notification": 0,
+        "new_igm": "1",
+        "new_items": "6",
+        "new_report": "7",
+        "new_quest": "1"
+    },
+    "quest": {
+        "use_questlines": true
+    },
+    "features": {
+        "Premium": {
+            "possible": true,
+            "active": false
+        },
+        "AccountManager": {
+            "possible": false,
+            "active": false
+        },
+        "FarmAssistent": {
+            "possible": true,
+            "active": false
+        }
+    },
+    "village": {
+        "id": 59650,
+        "name": "XellentDEs Dorf",
+        "display_name": "XellentDEs Dorf (729|457) K47",
+        "wood": 189,
+        "wood_prod": 0.035478701271247,
+        "wood_float": 189.8536711942279,
+        "stone": 196,
+        "stone_prod": 0.030503095953819,
+        "stone_float": 196.24620544058322,
+        "iron": 462,
+        "iron_prod": 0.016666666666667,
+        "iron_float": 462.4335183349637,
+        "pop": 46,
+        "pop_max": 240,
+        "x": 729,
+        "y": 457,
+        "trader_away": 0,
+        "storage_max": 1000,
+        "bonus_id": null,
+        "bonus": null,
+        "buildings": {
+            "main": "1",
+            "barracks": "0",
+            "stable": "0",
+            "garage": "0",
+            "watchtower": "0",
+            "snob": "0",
+            "smith": "0",
+            "place": "1",
+            "statue": "0",
+            "market": "0",
+            "wood": "6",
+            "stone": "5",
+            "iron": "1",
+            "farm": "1",
+            "storage": "1",
+            "hide": "1",
+            "wall": "0"
+        },
+        "player_id": 1577335560,
+        "modifications": 0,
+        "points": 59,
+        "last_res_tick": 1681494324011.1,
+        "coord": "729|457",
+        "is_farm_upgradable": true
+    },
+    "nav": {
+        "parent": 2
+    },
+    "link_base": "/game.php?village=59650&amp;screen=",
+    "link_base_pure": "/game.php?village=59650&screen=",
+    "csrf": "28c38cc6",
+    "world": "de213",
+    "market": "de",
+    "RTL": false,
+    "version": "cd1a0cc7 release_8.316\n",
+    "majorVersion": "8.316",
+    "screen": "main",
+    "mode": null,
+    "device": "desktop",
+    "pregame": false,
+    "units": [
+        "spear",
+        "sword",
+        "axe",
+        "archer",
+        "spy",
+        "light",
+        "marcher",
+        "heavy",
+        "ram",
+        "catapult",
+        "knight",
+        "snob",
+        "militia"
+    ],
+    "locale": "de_DE",
+    "group_id": 0,
+    "time_generated": 1681494044925
+}
+
+*/

@@ -1,0 +1,19 @@
+{
+    "decommission": false,
+    "village_id": 0,
+    "dat": {
+        "res": {
+            "wood": 27266,
+            "stone": 27266,
+            "iron": 27266,
+            "pop": 926
+        }
+    },
+    "_progress": false,
+    "cur_res": {
+        "wood": 27266,
+        "stone": 27266,
+        "iron": 27266,
+        "pop": 926
+    }
+}

@@ -127,6 +127,27 @@ function ressourcesMaxed(currentBuildLevel) {
     return currentBuildLevel.wood.currentLevel == 30 && currentBuildLevel.stone.currentLevel == 30 && currentBuildLevel.iron.currentLevel == 30
 }
 
+
+function maxOutRemeaining(currentBuildLevel) {
+    const shuffledBuildLevel = currentBuildLevel.sort((a, b) => 0.5 - Math.random());
+
+    for(const buildId of shuffledBuildLevel) {
+        if(!isMaxLevel(buildId))
+            return buildId
+    }
+
+    return null;
+}
+
+function canBeBuild(buildId, currentBuildLevel) {
+    return !!currentBuildLevel[buildId].currentLevel;
+}
+
+function floor(number) {
+    return Math.floor(number);
+    
+}
+
 function getNextBuild(currentBuildLevel) {
 
     
@@ -144,15 +165,15 @@ function getNextBuild(currentBuildLevel) {
         
 
     //statue
-    if(getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
         return ids.statue;
 
     //barracks
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (getLowestRessourceLevel(currentBuildLevel) / 3 > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
         return ids.barracks;
   
     //stable
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (getLowestRessourceLevel(currentBuildLevel) / 3  > currentBuildLevel.stable.currentLevel ) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3)  > currentBuildLevel.stable.currentLevel ) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
         return ids.stable;
 
     //smith
@@ -160,7 +181,7 @@ function getNextBuild(currentBuildLevel) {
         return ids.smith;
     
     //garage
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && getLowestRessourceLevel(currentBuildLevel) / 5 > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
         return ids.garage;
 
     //market
@@ -179,7 +200,7 @@ function getNextBuild(currentBuildLevel) {
 
 
     const mostNeededRessource = calculateMostNeededRessource();
-    if(!isMaxLevel(mostNeededRessource, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(mostNeededRessource, currentBuildLevel))
         return mostNeededRessource;
 
     //stone
@@ -195,7 +216,7 @@ function getNextBuild(currentBuildLevel) {
         return ids.iron;
 
 
-    return null;
+    return maxOutRemeaining(currentBuildLevel);
 
     
 }

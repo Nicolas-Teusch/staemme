@@ -1,9 +1,16 @@
 
 const unitIds = {
-    spear: "spear",
-    sword: "sword",
-    axe: "axe",
-    spy: "spy"
+    "spear": "spear",
+    "sword": "sword",
+    "axe": "axe",
+    "archer": "archer",
+    "spy": "spy",
+    "light": "light",
+    "marcher": "marcher",
+    "heavy": "heavy",
+    "ram": "ram",
+    "catapult": "catapult",
+    "snob": "snob"
 }
 
 
@@ -30,7 +37,7 @@ function inTrainWindow() {
 function recruit(unitId, amount) {
 
 
-    if(!inTrainWindow()) {
+    if (!inTrainWindow()) {
         gotoTrain();
     }
 

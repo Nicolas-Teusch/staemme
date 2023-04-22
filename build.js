@@ -17,6 +17,10 @@ const ids = {
     "wall": "wall",
 }
 
+const screenIds = {
+    "main": 'main'
+}
+
 
 
 const minFreeStoragePercentage = 10;
@@ -24,11 +28,156 @@ const minFreePopulationPercentage = 10;
 const maxMainBuildLevel = 20;
 const maxMarketBuildLevel = 20;
 let priorityWall = false;
+let nextRefresh = null;
 
 function storageIsLow() {
     const c = getCurrentRessources();
 
     return 100 - 100 * c.wood / c.storage < minFreeStoragePercentage || 100 - 100 * c.stone / c.storage < minFreeStoragePercentage || 100 - 100 * c.iron / c.storage < minFreeStoragePercentage
+}
+
+function addMinutes(date, minutes) {
+    return new Date(date.getTime() + minutes*60000);
+}
+
+function getNextPageRefresh() {
+    const now = new Date();
+    const randomMinutes = 10 + Math.floor(Math.random() * 6)
+    return addMinutes(now, randomMinutes)
+}
+
+function getGameData() {
+    return document ? game_data : {
+        "player": {
+            "id": 1577335560,
+            "name": "XellentDE",
+            "ally": "0",
+            "ally_level": null,
+            "ally_member_count": null,
+            "sitter": "0",
+            "sleep_start": "0",
+            "sitter_type": "normal",
+            "sleep_end": "0",
+            "sleep_last": "0",
+            "email_valid": "1",
+            "villages": "5",
+            "incomings": "0",
+            "supports": "0",
+            "knight_location": null,
+            "knight_unit": null,
+            "rank": 689,
+            "points": "4899",
+            "date_started": "1682078120",
+            "is_guest": "0",
+            "confirmation_skipping_hash": "",
+            "quest_progress": "0",
+            "points_formatted": "4<span class=\"grey\">.</span>899",
+            "rank_formatted": "689",
+            "pp": "2840",
+            "new_ally_application": 0,
+            "new_ally_invite": "0",
+            "new_buddy_request": "0",
+            "new_daily_bonus": "0",
+            "new_forum_post": 0,
+            "new_post_notification": 0,
+            "new_igm": "0",
+            "new_items": "0",
+            "new_report": "0",
+            "new_quest": "1"
+        },
+        "quest": {
+            "use_questlines": true
+        },
+        "features": {
+            "Premium": {
+                "possible": true,
+                "active": true
+            },
+            "AccountManager": {
+                "possible": true,
+                "active": false
+            },
+            "FarmAssistent": {
+                "possible": false,
+                "active": false
+            }
+        },
+        "village": {
+            "id": 20550,
+            "name": "XellentDEs Dorf 5",
+            "display_name": "XellentDEs Dorf 5 (356|493) K43",
+            "wood": 2493,
+            "wood_prod": 1.0118986388682,
+            "wood_float": 2493.754682013312,
+            "stone": 954,
+            "stone_prod": 0.86998791305672,
+            "stone_float": 954.2715452118172,
+            "iron": 7409,
+            "iron_prod": 0.64308093312704,
+            "iron_float": 7409.958301337511,
+            "pop": 587,
+            "pop_max": 2216,
+            "x": 356,
+            "y": 493,
+            "trader_away": 0,
+            "storage_max": 14670,
+            "bonus_id": null,
+            "bonus": null,
+            "buildings": {
+                "main": "13",
+                "barracks": "10",
+                "stable": "7",
+                "garage": "3",
+                "snob": "0",
+                "smith": "12",
+                "place": "1",
+                "market": "1",
+                "wood": "19",
+                "stone": "18",
+                "iron": "16",
+                "farm": "15",
+                "storage": "14",
+                "wall": "0"
+            },
+            "player_id": 1577335560,
+            "modifications": 0,
+            "points": 931,
+            "last_res_tick": 1682150246018.8,
+            "coord": "356|493",
+            "is_farm_upgradable": true
+        },
+        "nav": {
+            "parent": 2
+        },
+        "link_base": "/game.php?village=20550&amp;screen=",
+        "link_base_pure": "/game.php?village=20550&screen=",
+        "csrf": "ab374b1b",
+        "world": "dec1",
+        "market": "de",
+        "RTL": false,
+        "version": "cd1a0cc7 release_8.316\n",
+        "majorVersion": "8.316",
+        "screen": "main",
+        "mode": null,
+        "device": "desktop",
+        "pregame": false,
+        "units": [
+            "spear",
+            "sword",
+            "axe",
+            "archer",
+            "spy",
+            "light",
+            "marcher",
+            "heavy",
+            "ram",
+            "catapult",
+            "snob"
+        ],
+        "locale": "de_DE",
+        "group_id": "0",
+        "time_generated": 1682149859299
+    }
 }
 
 function populationIsLow() {
@@ -305,13 +454,6 @@ function getCurrentBuildLevel() {
     return buildLevel;
 }
 
-/*
-function getCurrentBuildLevel() {
-
-   return game_data.village.buildings;
-}
-*/
-
 
 function checkInProgress(buildId) {
     
@@ -337,8 +479,8 @@ function getCurrentBuildQueueLength() {
 }
 
 function getBuildQueueLimit() {
-    
-    return 2;
+    const gameData = getGameData();
+    return gameData.features.Premium.active ? 4 : 2;
 }
 
 function getBuildButton(buildId, nextbuildLevel) {
@@ -348,17 +490,31 @@ function getBuildButton(buildId, nextbuildLevel) {
     return buildButton;
 }
 
+function navigateScreen(screenId) {
+    const gameData = getGameData();
+    const linkBase = gameData.link_base_pure;
+    const destination = `${linkBase}${screenId}`;
+
+    window.location.href = destination
+}
 
 function build(buildId, nextbuildLevel) {
     const buildButton = getBuildButton(buildId, nextbuildLevel);
-    console.log("the build button: ", buildButton);
     buildButton?.click();
 }
 
 function buildLoop() {
     
     const currentBuildLevel = getCurrentBuildLevel();
-    const toBuild = getNextBuild(currentBuildLevel)
+    const toBuild = getNextBuild(currentBuildLevel);
+
+    if(nextRefresh == null) {
+        nextRefresh = getNextPageRefresh();
+    }
+
+    if(nextRefresh.getTime() < (new Date()).getTime()){
+
+    }
 
     if(toBuild == null) {
         console.log("finished building!!")
@@ -380,10 +536,6 @@ function buildLoop() {
     // check if we dont have engough ressources
     if(!canAfford(toBuild)) 
         return;
-
-    
-
-
 
     build(toBuild, nextbuildLevel);
     

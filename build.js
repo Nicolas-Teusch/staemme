@@ -1,3 +1,17 @@
+// ==UserScript==
+// @name         Build Script
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Builds up your village.
+// @author       You
+// @match        https://*.die-staemme.de/game.php?village=*&screen=main
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
 window.OMNIControl = {
      "minFreeStoragePercentage": 10,
  "minFreePopulationPercentage": 10,
@@ -889,7 +903,7 @@ function populationIsLow() {
 }
 
 function getLowestRessourceLevel(currentBuildLevel) {
-    
+
     let min = currentBuildLevel[ids.wood].currentLevel
 
     if(min > currentBuildLevel[ids.stone].currentLevel)
@@ -900,7 +914,7 @@ function getLowestRessourceLevel(currentBuildLevel) {
 
     return min;
 
-    
+
 }
 
 function isMaxLevel(buildId, currentBuildLevel) {
@@ -923,7 +937,7 @@ function isMaxLevel(buildId, currentBuildLevel) {
         case ids.wall:      return currentBuildLevel[ids.wall].currentLevel >= 20;
         case ids.wood:      return currentBuildLevel[ids.wood].currentLevel >= 30;
 
-    
+
         default:
             throw new Error("Invalid buildID");
     }
@@ -931,15 +945,15 @@ function isMaxLevel(buildId, currentBuildLevel) {
 
 function buildRequirementSatisfied(buildId, currentBuildLevel) {
     switch (buildId) {
-        case ids.farm:      
-        case ids.hide:      
-        case ids.iron:      
-        case ids.main:      
-        case ids.place:     
-        case ids.statue:    
-        case ids.stone:     
-        case ids.wood:          
-        case ids.storage:       
+        case ids.farm:
+        case ids.hide:
+        case ids.iron:
+        case ids.main:
+        case ids.place:
+        case ids.statue:
+        case ids.stone:
+        case ids.wood:
+        case ids.storage:
         case ids.wall:          return true;
         case ids.barracks:      return currentBuildLevel[ids.main].currentLevel >= 3;
         case ids.garage:        return currentBuildLevel[ids.main].currentLevel >= 10 && currentBuildLevel[ids.smith].currentLevel >= 10;
@@ -948,7 +962,7 @@ function buildRequirementSatisfied(buildId, currentBuildLevel) {
         case ids.snob:          return currentBuildLevel[ids.main].currentLevel >= 20 && currentBuildLevel[ids.smith].currentLevel >= 20 && currentBuildLevel[ids.market].currentLevel >= 10;
         case ids.stable:        return currentBuildLevel[ids.main].currentLevel >= 10 && currentBuildLevel[ids.barracks].currentLevel >= 5 && currentBuildLevel[ids.smith].currentLevel >= 5;
 
-    
+
         default:
             throw new Error("Invalid buildID");
     }
@@ -961,11 +975,11 @@ function calculateMostNeededRessource() {
     //wood low?
     if(c.wood <= c.iron && c.wood <= c.stone)
         return ids.wood;
-    
+
     //stone low?
     if(c.stone <= c.iron && c.stone <= c.wood)
         return ids.stone;
-    
+
 
     return ids.iron;
 }
@@ -996,12 +1010,12 @@ function canBeBuild(buildId, currentBuildLevel) {
 
 function floor(number) {
     return Math.floor(number);
-    
+
 }
 
 function getNextBuild(currentBuildLevel) {
 
-    
+
     //farm
     if(populationIsLow() && !isMaxLevel(ids.farm, currentBuildLevel))
         return ids.farm;
@@ -1013,7 +1027,7 @@ function getNextBuild(currentBuildLevel) {
     //wall
     if(priorityWall || (getLowestRessourceLevel(currentBuildLevel) > 20 && getBuildDistance(ids.iron, ids.wall) >= 5 && !isMaxLevel(ids.wall, currentBuildLevel)))
         return ids.wall;
-        
+
 
     //statue
     if(getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
@@ -1022,7 +1036,7 @@ function getNextBuild(currentBuildLevel) {
     //barracks
     if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
         return ids.barracks;
-  
+
     //stable
     if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3)  > currentBuildLevel.stable.currentLevel ) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
         return ids.stable;
@@ -1030,7 +1044,7 @@ function getNextBuild(currentBuildLevel) {
     //smith
     if(getLowestRessourceLevel(currentBuildLevel) >= 15 && ((getLowestRessourceLevel(currentBuildLevel) > 23 && getBuildDistance(ids.iron, ids.smith) >= 5) || currentBuildLevel.smith.currentLevel < 5) && !isMaxLevel(ids.smith, currentBuildLevel) && buildRequirementSatisfied(ids.smith, currentBuildLevel))
         return ids.smith;
-    
+
     //garage
     if(getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
         return ids.garage;
@@ -1046,7 +1060,7 @@ function getNextBuild(currentBuildLevel) {
     //main
     if(getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
         return ids.main
-    
+
 
 
 
@@ -1057,7 +1071,7 @@ function getNextBuild(currentBuildLevel) {
     //stone
     if(getBuildDistance(ids.stone, ids.wood) < 1 && !isMaxLevel(ids.stone, currentBuildLevel))
         return ids.stone;
-    
+
     //wood
     if(getBuildDistance(ids.wood, ids.iron) < 1 && !isMaxLevel(ids.wood, currentBuildLevel))
         return ids.wood;
@@ -1069,7 +1083,7 @@ function getNextBuild(currentBuildLevel) {
 
     return maxOutRemeaining(currentBuildLevel);
 
-    
+
 }
 
 function getDiff(a, b) {
@@ -1115,7 +1129,7 @@ function NaNToZero(value) {
 
 function getCost(buildId) {
     const buildRow = document.getElementById(`main_buildrow_${buildId}`)
-    
+
     if(buildRow == null) {
         return {}
     }
@@ -1131,7 +1145,7 @@ function getCost(buildId) {
     const population = NaNToZero(+ buildRow.children[5]?.innerText);
 
 
-    
+
     return {currentLevel, wood, stone, iron, population}
 }
 
@@ -1180,7 +1194,7 @@ function getCurrentBuildLevelIncludingQueue() {
 
 
 function checkInProgress(buildId) {
-    
+
 }
 
 function getAllBuildsInProgress() {
@@ -1228,11 +1242,11 @@ function build(buildId, nextbuildLevel) {
 }
 
 function buildLoop() {
-    
+
     const currentBuildLevel = getCurrentBuildLevelIncludingQueue();
     const toBuild = getNextBuild(currentBuildLevel);
 
-    
+
 
     if(nextRefresh == null || nextRefresh.getTime() < (new Date()).getTime()){
         navigateScreen(screenIds.main)
@@ -1256,11 +1270,13 @@ function buildLoop() {
     console.log(canAfford(toBuild));
 
     // check if we dont have engough ressources
-    if(!canAfford(toBuild)) 
+    if(!canAfford(toBuild))
         return;
 
     build(toBuild, nextbuildLevel);
-    
+
 }
 
 let interval = setInterval(() => buildLoop(), 1000)
+
+})();

@@ -1,3 +1,4 @@
+
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
@@ -8,10 +9,6 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de
 // @grant        none
 // ==/UserScript==
-
-
-var win = typeof unsafeWindow != 'undefined' ? unsafeWindow : window;
-win.$.ajaxSetup({ cache: true });
 
 (function() {
     'use strict';

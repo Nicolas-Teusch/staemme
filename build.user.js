@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -993,6 +993,16 @@ function ressourcesMaxed(currentBuildLevel) {
     return currentBuildLevel.wood.currentLevel == 30 && currentBuildLevel.stone.currentLevel == 30 && currentBuildLevel.iron.currentLevel == 30
 }
 
+function isCurrentlyBuilding(buildId, currentBuildLevel) {
+
+    /*
+    "level": "13",
+    "level_next": 14,
+    */
+    return currentBuildLevel[buildId].level_next - currentBuildLevel[buildId].level >= 2;
+
+}
+
 
 function maxOutRemeaining(currentBuildLevel) {
     const shuffledBuildLevel = currentBuildLevel.sort((a, b) => 0.5 - Math.random());
@@ -1018,48 +1028,48 @@ function getNextBuild(currentBuildLevel) {
 
 
     //farm
-    if(populationIsLow() && !isMaxLevel(ids.farm, currentBuildLevel))
+    if(populationIsLow() && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.farm, currentBuildLevel))
         return ids.farm;
 
     //storage
-    if(storageIsLow() && !isMaxLevel(ids.storage, currentBuildLevel))
+    if(storageIsLow() && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.storage, currentBuildLevel))
         return ids.storage;
 
     //wall
-    if(priorityWall || (getLowestRessourceLevel(currentBuildLevel) > 20 && getBuildDistance(ids.iron, ids.wall) >= 5 && !isMaxLevel(ids.wall, currentBuildLevel)))
+    if(priorityWall || (getLowestRessourceLevel(currentBuildLevel) > 20 && getBuildDistance(ids.iron, ids.wall) >= 5 && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.wall, currentBuildLevel)))
         return ids.wall;
 
 
     //statue
-    if(getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
         return ids.statue;
 
     //barracks
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
         return ids.barracks;
 
     //stable
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3)  > currentBuildLevel.stable.currentLevel ) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3)  > currentBuildLevel.stable.currentLevel ) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
         return ids.stable;
 
     //smith
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && ((getLowestRessourceLevel(currentBuildLevel) > 23 && getBuildDistance(ids.iron, ids.smith) >= 5) || currentBuildLevel.smith.currentLevel < 5) && !isMaxLevel(ids.smith, currentBuildLevel) && buildRequirementSatisfied(ids.smith, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && ((getLowestRessourceLevel(currentBuildLevel) > 23 && getBuildDistance(ids.iron, ids.smith) >= 5) || currentBuildLevel.smith.currentLevel < 5) && !isMaxLevel(ids.smith, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.smith, currentBuildLevel))
         return ids.smith;
 
     //garage
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
         return ids.garage;
 
     //market
-    if(getBuildDistance(ids.iron, ids.market) > 15 && buildRequirementSatisfied(ids.market, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
+    if(getBuildDistance(ids.iron, ids.market) > 15 && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
         return ids.market
 
     //snob
-    if(getLowestRessourceLevel(currentBuildLevel) > 25 && buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
+    if(getLowestRessourceLevel(currentBuildLevel) > 25 && buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
         return ids.snob
 
     //main
-    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
+    if(getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
         return ids.main
 
 

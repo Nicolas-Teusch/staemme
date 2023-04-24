@@ -11,6 +11,8 @@
 
 
 var win = typeof unsafeWindow != 'undefined' ? unsafeWindow : window;
+win.$.ajaxSetup({ cache: true });
+
 (function() {
     'use strict';
 

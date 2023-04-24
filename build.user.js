@@ -999,7 +999,7 @@ function isCurrentlyBuilding(buildId, currentBuildLevel) {
     "level": "13",
     "level_next": 14,
     */
-    return currentBuildLevel[buildId].level_next - currentBuildLevel[buildId].level >= 2;
+    return currentBuildLevel[buildId].level_next - currentBuildLevel[buildId].level >= 3;
 
 }
 

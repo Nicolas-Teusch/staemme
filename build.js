@@ -9,6 +9,8 @@
 // @grant        none
 // ==/UserScript==
 
+
+var win = typeof unsafeWindow != 'undefined' ? unsafeWindow : window;
 (function() {
     'use strict';
 

@@ -100,7 +100,7 @@
 
     function setNextPageRefreshInMinutes(minutes) {
         const now = new Date();
-        return addMinutes(now, + minutes)
+        window.OMNIControl.nextRefresh = addMinutes(now, + minutes)
     }
 
     function getGameData() {

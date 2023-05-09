@@ -205,6 +205,20 @@ function getGameData() {
     }
 }
 
+async function avoidBotProtection() {
+    let chkBox = document.getElementById('checkbox');
+
+    //if checkbox is not present no bot-protection is active.
+    if(!checkBox)
+        return;
+
+    setTimeout(() => {
+
+        checkBox.click();
+
+    }), Math.floor(Math.random() * 5000);
+}
+
 
 function getBuildingMain() {
     return BuildingMain ?  BuildingMain : {
@@ -1252,13 +1266,14 @@ function build(buildId, nextbuildLevel) {
     buildButton?.click();
 }
 
-function buildLoop() {
+async function buildLoop() {
 
     const currentBuildLevel = getCurrentBuildLevelIncludingQueue();
     const toBuild = getNextBuild(currentBuildLevel);
 
 
-
+    await avoidBotProtection();
+    
     if(nextRefresh == null || nextRefresh.getTime() < (new Date()).getTime()){
         navigateScreen(screenIds.main)
     }

@@ -1,0 +1,215 @@
+<td id="content_value">
+                                            
+                                            
+<!--[if IE]><style type="text/css">
+table.vis.vis_menu {
+    border-collapse: collapse;
+    margin-top: -2px;
+    margin-left: -2px;
+    margin-right: -2px;
+
+    border-left: none;
+    border-right: none;
+    border-top: none;
+
+}
+
+table.main {
+    border-collapse: collapse;
+}
+
+.main td{
+    overflow: hidden;
+}
+
+</style><![endif]-->
+
+<script type="text/javascript">
+//<![CDATA[
+	if(window.opera) { $("#content_value").css("overflow", "hidden"); }
+	// This not bold thing is some kind of hack, because a tooltip contains a title and a body.
+	// If they are not splitted like the most tooltips everything is handeld as title and printed bold
+	// when using the bodyHandler function the title is removed, but i just return the normal tooltip text
+	// the non-bold class is just copyed from previous solutuon
+	$( function() { UI.ToolTip( $( '.village_note' ), { bodyHandler: function() { return this.tooltipText; }, extraClass: "tooltip-style not-bold" } ); } );
+//]]>
+</script>
+
+
+
+<input type="hidden" id="overview" value="incomings">
+<table class="vis modemenu" width="100%" id="overview_menu"><tbody><tr>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=combined">Kombiniert </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=prod">Produktion </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=trader">Transporte </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=units">Truppen </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=commands">Befehle </a></td>
+	<td style="text-align:center" class="selected"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings">Eintreffend </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=buildings">Gebäude </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=tech">Forschung </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=groups">Gruppen </a></td>
+	<td style="text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=am">Account-Manager </a></td>
+</tr></tbody></table><br>
+
+						
+
+			
+			<div id="paged_view_content">
+    	
+        <div class="vis_item" align="center">Gruppen: <a class="group-menu-item" data-group-id="4190" data-group-type="dynamic" href="/game.php?village=20548&amp;screen=overview_villages&amp;subtype=all&amp;group=4190" data-title="">[Volle Offensive]</a>  <a class="group-menu-item" data-group-id="4191" data-group-type="dynamic" href="/game.php?village=20548&amp;screen=overview_villages&amp;subtype=all&amp;group=4191" data-title="">[Eingehender Angriff]</a>  <a class="group-menu-item" data-group-id="4192" data-group-type="dynamic" href="/game.php?village=20548&amp;screen=overview_villages&amp;subtype=all&amp;group=4192" data-title="">[Enthält Adelsgeschlecht]</a>  <strong class="group-menu-item" data-group-id="0" data-group-type="all" data-title="">&gt;alle&lt; </strong>  <a class="group-menu-item" data-group-id="4485" data-group-type="static" href="/game.php?village=20548&amp;screen=overview_villages&amp;subtype=all&amp;group=4485" data-title="">[Deff]</a> </div><script>$(function() { VillageGroupMenu.Nav.init(); });</script>
+
+   		<table class="vis" width="100%">
+			   		</table>
+	
+	
+
+<script type="text/javascript">
+$(function(){
+	VillageGroups.initOverviews();
+});
+</script>
+<table class="vis modemenu" style="width:100%; margin-left:auto; margin-right:auto">
+<tbody><tr>
+	<td style="width:33%; text-align:center" class="selected"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings&amp;type=unignored&amp;subtype=all">Alle</a></td>
+	<td style="width:33%; text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings&amp;type=unignored&amp;subtype=attacks">Angriffe</a></td>
+	<td style="width:33%; text-align:center"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings&amp;type=unignored&amp;subtype=supports">Unterstützungen</a></td>
+</tr>
+</tbody></table>
+<br>
+
+<div class="overview_filters" style="display: none; margin-bottom: 10px">
+    <form method="POST" action="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings&amp;action=save_filters">
+        <input type="hidden" name="return" value="/game.php?village=20548&amp;screen=overview_villages">
+        <table class="vis">
+            <tbody><tr>
+                <th colspan="2">Eingehende Angriffe filtern</th>
+            </tr>
+                                            <tr>
+                    <td>Befehl:</td>
+                    <td>
+                        <input type="text" name="filters[target_comment]" value="">
+                                            </td>
+                </tr>
+                                            <tr>
+                    <td>Zieldorf:</td>
+                    <td>
+                        <input type="text" name="filters[target_name]" value="">
+                                            </td>
+                </tr>
+                                            <tr>
+                    <td>Herkunftsdorf:</td>
+                    <td>
+                        <input type="text" name="filters[origin_name]" value="">
+                                            </td>
+                </tr>
+                                            <tr>
+                    <td>Spieler:</td>
+                    <td>
+                        <input type="text" name="filters[origin_player]" value="" class="autocomplete ui-autocomplete-input" data-type="player" autocomplete="off">
+                                            </td>
+                </tr>
+                                                <!-- will use non-standard input for command icons -->
+                                            <tr>
+                <td colspan="2" class="center">
+                    <input type="submit" value="Speichern &amp; neu laden" class="btn">
+                </td>
+            </tr>
+        </tbody></table>
+    <input type="hidden" name="h" value="04c77b10"></form>
+</div>
+
+<a href="#" class="overview_filters_manage">
+    <img src="https://dsde.innogamescdn.com/asset/0b193151/graphic/search.png" alt="">            Filter verwalten    </a>
+
+
+<form id="incomings_form" action="/game.php?village=20548&amp;screen=overview_villages&amp;mode=incomings&amp;action=process&amp;type=unignored&amp;subtype=all" method="post">
+<table id="incomings_table" class="vis overview_table " style="width:100%">
+<input type="hidden" name="label_format" value="%unit%">
+
+<tbody><tr>
+	<th width="120">Befehl (1)</th>
+	<th width="*"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=target_name
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Ziel</a></th>
+	<th width="150"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=start_village_name
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Herkunft</a></th>
+	<th width="*"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=start_player_name
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Spieler</a></th>
+    <th><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=distance
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Entfernung</a></th>
+	<th width="160"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=date_arrival
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Ankunft</a></th>
+	<th width="80"><a href="/game.php?village=20548&amp;screen=overview_villages&amp;
+				page=-1
+				&amp;order=date_arrival
+				&amp;dir=desc&amp;type=unignored&amp;subtype=all">Ankunft in</a></th></tr>
+	<tr style="white-space:nowrap" class="nowrap  row_a">
+	<td>
+		<input name="command_ids[1839282602]" type="hidden" value="true">
+		<input name="id_1839282602" type="checkbox">
+        <span class="quickedit" data-id="1839282602">
+            <span class="quickedit-content">
+                <a href="/game.php?village=20548&amp;screen=info_command&amp;id=1839282602&amp;type=other">
+                    <span class="icon-container">
+                        <span class="command_hover_details" data-command-id="1839282602" data-icon-hint="Kleiner Angriff (1-1000 Truppen)" data-command-type="attack" data-title="">
+	<img src="https://dsde.innogamescdn.com/asset/0b193151/graphic/command/attack_small.png" alt="">
+</span><span class="command_hover_details" data-command-id="1839282602" data-icon-hint="Enthält Späher" data-command-type="attack" data-title="">
+	<img src="https://dsde.innogamescdn.com/asset/0b193151/graphic/command/spy.png" alt="">
+</span>                    </span>
+                    <span class="quickedit-label">
+                         Angriff                    </span>
+                </a>
+                <a class="rename-icon" href="#" data-title="Umbenennen"></a>
+            </span>
+        </span>
+	</td>
+	<td>
+		<a href="/game.php?village=20137&amp;screen=overview">006 XellentDEs Dorf (360|490) K43</a>
+	</td>
+	<td>
+			<a href="/game.php?village=20548&amp;screen=info_village&amp;id=20548">003 XellentDEs Dorf (361|490) K43</a>
+	</td>
+	<td>
+		<a href="/game.php?village=20548&amp;screen=info_player&amp;id=1577335560">XellentDE</a>
+	</td>
+    <td>
+        1    </td>
+	<td>
+					heute um 16:12:03:<span class="grey small">326</span>				</td><td><span class="">0:29:33</span></td>
+	</tr>
+<tr>
+    <th style="white-space:nowrap;">
+        <input name="all" type="checkbox" class="selectAll" id="select_all" onclick="selectAll(this.form, this.checked)"> <label for="select_all">alle auswählen</label>
+    </th>
+    <th colspan="6">
+                <input class="btn" type="button" onclick="$('#incomings_form').attr('action', '/game.php?village=20548&amp;screen=reqdef'); $('#incomings_form').submit();" value="Unterstützung anfordern" name="reqdef">
+        <input class="btn" type="submit" value="Umbenennen" name="label" data-title="Benennt eingehende Angriffe mit dem Namen der schätzungsweise langsamsten Einheit. Die Berechnung findet unter der Annahme statt, dass der Angriff so eben verschickt wurde. Bereits umbenannte Angriffe werden nicht umbenannt.">
+    </th>
+</tr>
+</tbody></table>
+
+<input type="hidden" name="h" value="04c77b10"></form>
+
+
+<script type="text/javascript">
+	$('document').ready(function() {
+        CommandsOverview.init();
+		UI.ToolTip('.icon_village_notes');
+
+        $('.quickedit').QuickEdit({url: TribalWars.buildURL('POST', 'info_command', {ajaxaction: 'edit_other_comment', id: '__ID__'})});
+        Command.init();
+	});
+</script>
+
+</div>
+
+	                               		</td>

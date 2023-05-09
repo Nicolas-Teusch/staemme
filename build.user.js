@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.4
+// @version      1.1.5
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -20,10 +20,11 @@
         "maxMainBuildLevel": 20,
         "maxMarketBuildLevel": 20,
         "priorityWall": false,
-        "nextRefresh": null
+        "nextRefresh": null,
+        "saveOmniControl": saveOmniControl
     }
 
-    window.udpateOmniControl = udpateOmniControl;
+    
 
     function loadStorage() {
 

@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.1.1
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -1273,7 +1273,7 @@ async function buildLoop() {
 
 
     await avoidBotProtection();
-    
+
     if(nextRefresh == null || nextRefresh.getTime() < (new Date()).getTime()){
         navigateScreen(screenIds.main)
     }

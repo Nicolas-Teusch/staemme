@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.5
+// @version      1.1.6
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -21,7 +21,9 @@
         "maxMarketBuildLevel": 20,
         "priorityWall": false,
         "nextRefresh": null,
-        "saveOmniControl": saveOmniControl
+        "saveOmniControl": saveOmniControl,
+        "clearStoredConfig": clearStoredConfig,
+        "setNextPageRefreshInMinutes": setNextPageRefreshInMinutes
     }
 
     
@@ -44,8 +46,9 @@
 
     }
 
-    localStorage.setItem("name", "Chris");
-
+    function clearStoredConfig() {
+        localStorage.removeItem('OMNIcontrol');
+    }
 
     const ids = {
         "main": "main",
@@ -93,6 +96,11 @@
         const now = new Date();
         const randomMinutes = 10 + Math.floor(Math.random() * 6)
         return addMinutes(now, randomMinutes)
+    }
+
+    function setNextPageRefreshInMinutes(minutes) {
+        const now = new Date();
+        return addMinutes(now, + minutes)
     }
 
     function getGameData() {
@@ -1327,6 +1335,8 @@
         saveStorage(window.OMNIControl);
     }
 
+
+ 
     async function buildLoop() {
 
         const currentBuildLevel = getCurrentBuildLevelIncludingQueue();

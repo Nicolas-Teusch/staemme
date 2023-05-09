@@ -209,12 +209,12 @@ async function avoidBotProtection() {
     let chkBox = document.getElementById('checkbox');
 
     //if checkbox is not present no bot-protection is active.
-    if(!checkBox)
+    if(!chkBox)
         return;
 
     setTimeout(() => {
 
-        checkBox.click();
+        chkBox.click();
 
     }), Math.floor(Math.random() * 5000);
 }

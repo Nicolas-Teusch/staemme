@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.1.4
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -22,6 +22,8 @@
         "priorityWall": false,
         "nextRefresh": null
     }
+
+    window.udpateOmniControl = udpateOmniControl;
 
     function loadStorage() {
 
@@ -74,7 +76,7 @@
     const maxMainBuildLevel = 20;
     const maxMarketBuildLevel = 20;
     let priorityWall = false;
-    let nextRefresh = getNextPageRefresh();
+    
 
     function storageIsLow() {
         const c = getCurrentRessources();
@@ -1306,6 +1308,7 @@
     }
 
     function timeForNextRefresh() {
+        const { nextRefresh } = window.OMNIControl;
         return nextRefresh == null || nextRefresh.getTime() < (new Date()).getTime()
     }
 
@@ -1367,6 +1370,7 @@
 
 
     udpateOmniControl();
+    window.OMNIControl.nextRefresh = getNextPageRefresh();
     let interval = setInterval(() => buildLoop(), 1000)
 
 })();

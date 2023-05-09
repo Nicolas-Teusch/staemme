@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main

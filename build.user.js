@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.7
+// @version      1.1.8
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -100,7 +100,10 @@
 
     function setNextPageRefreshInMinutes(minutes) {
         const now = new Date();
-        window.OMNIControl.nextRefresh = addMinutes(now, + minutes)
+        const nextRefresh =  addMinutes(now, + minutes);
+        window.OMNIControl.nextRefresh = nextRefresh;
+
+        return nextRefresh;
     }
 
     function getGameData() {

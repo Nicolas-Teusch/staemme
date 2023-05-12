@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.1.9
+// @version      1.2.0
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -14,16 +14,13 @@
     'use strict';
 
     window.OMNIControl = {
-        "traverseVillages": false,
+        "traverseVillages": true,
         "minFreeStoragePercentage": 10,
         "minFreePopulationPercentage": 10,
         "maxMainBuildLevel": 20,
         "maxMarketBuildLevel": 20,
         "priorityWall": false,
         "nextRefresh": null,
-        "saveOmniControl": saveOmniControl,
-        "clearStoredConfig": clearStoredConfig,
-        "setNextPageRefreshInMinutes": setNextPageRefreshInMinutes
     }
 
     

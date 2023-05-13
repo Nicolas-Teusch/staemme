@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.2.2
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -1084,7 +1084,7 @@
         for(const building of shuffledBuildLevel) {
             let buildId = building[0];
 
-            if(!isMaxLevel(buildId))
+            if(!isMaxLevel(buildId, currentBuildLevel))
                 return build;
         }
 

@@ -970,33 +970,39 @@
 
     }
 
+    function getSanitisedCurrentLevel(currentBuildLevel, buildId) {
+        const currentLevel = currentBuildLevel[ids.barracks].currentLevel
+
+        if(isNaN(currentBuildLevel) || currentLevel === undefined || currentLevel === null)
+            return 999;
+        
+        return currentLevel
+    }
+
     function isMaxLevel(buildId, currentBuildLevel) {
 
-        let evaluate = NaN;
         switch (buildId) {
-            case ids.barracks: evaluate = currentBuildLevel[ids.barracks].currentLevel >= 25; break;
-            case ids.farm: evaluate = currentBuildLevel[ids.farm].currentLevel >= 30; break;
-            case ids.garage: evaluate = currentBuildLevel[ids.garage].currentLevel >= Math.min(15, maxBuildLevel.garage); break;
-            case ids.hide: evaluate = currentBuildLevel[ids.hide].currentLevel >= 10; break;
-            case ids.iron: evaluate = currentBuildLevel[ids.iron].currentLevel >= 30; break;
-            case ids.main: evaluate = currentBuildLevel[ids.main].currentLevel >= Math.min(30, maxBuildLevel.main); break;
-            case ids.market: evaluate = currentBuildLevel[ids.market].currentLevel >= Math.min(25, maxBuildLevel.market); break;
-            case ids.place: evaluate = currentBuildLevel[ids.place].currentLevel >= 1; break;
-            case ids.smith: evaluate = currentBuildLevel[ids.smith].currentLevel >= 20; break;
-            case ids.snob: evaluate = currentBuildLevel[ids.snob].currentLevel >= 1; break;
-            case ids.stable: evaluate = currentBuildLevel[ids.stable].currentLevel >= 20; break;
-            case ids.statue: evaluate = currentBuildLevel[ids.statue].currentLevel >= 1; break;
-            case ids.stone: evaluate = currentBuildLevel[ids.stone].currentLevel >= 30; break;
-            case ids.storage: evaluate = currentBuildLevel[ids.storage].currentLevel >= 30; break;
-            case ids.wall: evaluate = currentBuildLevel[ids.wall].currentLevel >= 20; break;
-            case ids.wood: evaluate = currentBuildLevel[ids.wood].currentLevel >= 30; break;
+            case ids.barracks: return getSanitisedCurrentLevel(currentBuildLevel, ids.barracks) >= 25;
+            case ids.farm: return getSanitisedCurrentLevel(currentBuildLevel, ids.farm) >= 30;
+            case ids.garage: return getSanitisedCurrentLevel(currentBuildLevel, ids.garage) >= Math.min(15, maxBuildLevel.garage);
+            case ids.hide: return getSanitisedCurrentLevel(currentBuildLevel, ids.hide) >= 10;
+            case ids.iron: return getSanitisedCurrentLevel(currentBuildLevel, ids.iron) >= 30;
+            case ids.main: return getSanitisedCurrentLevel(currentBuildLevel, ids.main) >= Math.min(30, maxBuildLevel.main);
+            case ids.market: return getSanitisedCurrentLevel(currentBuildLevel, ids.market) >= Math.min(25, maxBuildLevel.market);
+            case ids.place: return getSanitisedCurrentLevel(currentBuildLevel, ids.place) >= 1;
+            case ids.smith: return getSanitisedCurrentLevel(currentBuildLevel, ids.smith) >= 20;
+            case ids.snob: return getSanitisedCurrentLevel(currentBuildLevel, ids.snob) >= 1;
+            case ids.stable: return getSanitisedCurrentLevel(currentBuildLevel, ids.stable) >= 20;
+            case ids.statue: return getSanitisedCurrentLevel(currentBuildLevel, ids.statue) >= 1;
+            case ids.stone: return getSanitisedCurrentLevel(currentBuildLevel, ids.stone) >= 30;
+            case ids.storage: return getSanitisedCurrentLevel(currentBuildLevel, ids.storage) >= 30;
+            case ids.wall: return getSanitisedCurrentLevel(currentBuildLevel, ids.wall) >= 20;
+            case ids.wood: return getSanitisedCurrentLevel(currentBuildLevel, ids.wood) >= 30;
 
 
             default:
                 throw new Error("Invalid buildID");
         }
-
-        return isNaN(evaluate) ? true : evaluate;
     }
 
     function buildRequirementSatisfied(buildId, currentBuildLevel) {
@@ -1060,6 +1066,7 @@
 
 
     function maxOutRemeaining(currentBuildLevel) {
+        console.log("max out remaining");
         /*
             [
                 [
@@ -1088,6 +1095,7 @@
 
         for(const building of shuffledBuildLevel) {
             let buildId = building[0];
+            console.log(buildId);
 
             if(!isMaxLevel(buildId, currentBuildLevel))
                 return buildId;

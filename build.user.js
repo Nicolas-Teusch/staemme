@@ -1423,7 +1423,7 @@
 
         // check if we dont have engough ressources
         if (!canAfford(toBuild))
-            return;
+            return nextVillage();
 
         build(toBuild, nextbuildLevel);
 

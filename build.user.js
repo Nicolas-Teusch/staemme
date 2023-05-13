@@ -71,6 +71,11 @@
     }
 
 
+    const maxBuildLevel = {
+        main: 20,
+        market: 20,
+        garage: 6
+    }
 
     const minFreeStoragePercentage = 10;
     const minFreePopulationPercentage = 10;
@@ -970,11 +975,11 @@
         switch (buildId) {
             case ids.barracks: return currentBuildLevel[ids.barracks].currentLevel >= 25;
             case ids.farm: return currentBuildLevel[ids.farm].currentLevel >= 30;
-            case ids.garage: return currentBuildLevel[ids.garage].currentLevel >= 15;
+            case ids.garage: return currentBuildLevel[ids.garage].currentLevel >= Math.min(15, maxBuildLevel.garage);
             case ids.hide: return currentBuildLevel[ids.hide].currentLevel >= 10;
             case ids.iron: return currentBuildLevel[ids.iron].currentLevel >= 30;
-            case ids.main: return currentBuildLevel[ids.main].currentLevel >= 30;
-            case ids.market: return currentBuildLevel[ids.market].currentLevel >= 25;
+            case ids.main: return currentBuildLevel[ids.main].currentLevel >= Math.min(30, maxBuildLevel.main);
+            case ids.market: return currentBuildLevel[ids.market].currentLevel >= Math.min(25, maxBuildLevel.market);
             case ids.place: return currentBuildLevel[ids.place].currentLevel >= 1;
             case ids.smith: return currentBuildLevel[ids.smith].currentLevel >= 20;
             case ids.snob: return currentBuildLevel[ids.snob].currentLevel >= 1;
@@ -1077,9 +1082,6 @@
             ]
         */
         const shuffledBuildLevel = Object.entries(currentBuildLevel).sort((a, b) => 0.5 - Math.random());
-
-        console.log(shuffledBuildLevel);
-        
 
         for(const building of shuffledBuildLevel) {
             let buildId = building[0];

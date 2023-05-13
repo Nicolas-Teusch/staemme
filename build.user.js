@@ -1410,6 +1410,9 @@
 
         if (getCurrentBuildQueueLength() >= getBuildQueueLimit()) {
             console.log("BuildQueue is currently full!")
+            setTimeout(() => {
+                nextVillage();
+            }, Math.floor(10000 * Math.random()));
             return;
         }
 

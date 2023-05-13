@@ -1085,7 +1085,7 @@
             let buildId = building[0];
 
             if(!isMaxLevel(buildId, currentBuildLevel))
-                return build;
+                return buildId;
         }
 
         return null;

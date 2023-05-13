@@ -1401,6 +1401,7 @@
         if (toBuild == null) {
             console.log("finished building!!")
             clearInterval(interval);
+            nextVillage();
             return;
         }
 

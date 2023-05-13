@@ -67,7 +67,8 @@
     }
 
     const screenIds = {
-        "main": 'main'
+        "main": 'main',
+        "overview": "overview"
     }
 
 
@@ -244,17 +245,22 @@
     }
 
     async function avoidBotProtection() {
-        let chkBox = document.getElementById('checkbox');
 
-        //if checkbox is not present no bot-protection is active.
-        if (!chkBox)
-            return;
+        return new Promise((resolve, reject) => {
+            let chkBox = document.getElementById('checkbox');
 
-        setTimeout(() => {
-
-            chkBox.click();
-
-        }), Math.floor(Math.random() * 5000);
+            //if checkbox is not present no bot-protection is active.
+            if (!chkBox) {
+                return resolve();
+            }
+    
+            setTimeout(() => {
+    
+                chkBox.click();
+                resolve();
+            }), Math.floor(Math.random() * 3);
+        })
+        
     }
 
 
@@ -1066,7 +1072,7 @@
 
 
     function maxOutRemeaining(currentBuildLevel) {
-        console.log("max out remaining");
+    
         /*
             [
                 [
@@ -1095,7 +1101,6 @@
 
         for(const building of shuffledBuildLevel) {
             let buildId = building[0];
-            console.log(buildId);
 
             if(!isMaxLevel(buildId, currentBuildLevel))
                 return buildId;
@@ -1125,7 +1130,7 @@
             return ids.storage;
 
         //snob
-        if (getLowestRessourceLevel(currentBuildLevel) > 25 && buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
+        if (buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
             return ids.snob
 
         //wall
@@ -1406,7 +1411,7 @@
         }
 
         let nextbuildLevel = + currentBuildLevel[toBuild].currentLevel + 1
-        console.log(`Can we build ${toBuild} Level ${nextbuildLevel}`);
+        console.log(`Can we build ${toBuild} Level ${nextbuildLevel}?`, canAfford(toBuild));
 
         if (getCurrentBuildQueueLength() >= getBuildQueueLimit()) {
             console.log("BuildQueue is currently full!")
@@ -1415,9 +1420,6 @@
             }, Math.floor(10000 * Math.random()));
             return;
         }
-
-        console.log("cost of next build step: ", getCost(toBuild));
-        console.log(canAfford(toBuild));
 
         // check if we dont have engough ressources
         if (!canAfford(toBuild))

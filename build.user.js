@@ -971,9 +971,9 @@
     }
 
     function getSanitisedCurrentLevel(currentBuildLevel, buildId) {
-        const currentLevel = currentBuildLevel[ids.barracks].currentLevel
+        const currentLevel = currentBuildLevel[buildId].currentLevel
 
-        if(isNaN(currentBuildLevel) || currentLevel === undefined || currentLevel === null)
+        if(isNaN(currentLevel) || currentLevel === undefined || currentLevel === null)
             return 999;
         
         return currentLevel

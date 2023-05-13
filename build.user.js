@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Build Script
 // @namespace    http://tampermonkey.net/
-// @version      1.2.0
+// @version      1.2.1
 // @description  Builds up your village.
 // @author       You
 // @match        https://*.die-staemme.de/game.php?village=*&screen=main
@@ -1052,11 +1052,40 @@
 
 
     function maxOutRemeaining(currentBuildLevel) {
-        const shuffledBuildLevel = currentBuildLevel.sort((a, b) => 0.5 - Math.random());
+        /*
+            [
+                [
+                    "main",
+                    {
+                        "currentLevel": 20,
+                        "wood": 9155,
+                        "stone": 10311,
+                        "iron": 7120,
+                        "population": 17
+                    }
+                ],
+                [
+                    "barracks",
+                    {
+                        "currentLevel": 25,
+                        "wood": 0,
+                        "stone": 0,
+                        "iron": 0,
+                        "population": 0
+                    }
+                ]
+            ]
+        */
+        const shuffledBuildLevel = Object.entries(currentBuildLevel).sort((a, b) => 0.5 - Math.random());
 
-        for (const buildId of shuffledBuildLevel) {
-            if (!isMaxLevel(buildId))
-                return buildId
+        console.log(shuffledBuildLevel);
+        
+
+        for(const building of shuffledBuildLevel) {
+            let buildId = building[0];
+
+            if(!isMaxLevel(buildId))
+                return build;
         }
 
         return null;
@@ -1081,6 +1110,10 @@
         //storage
         if (storageIsLow() && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.storage, currentBuildLevel))
             return ids.storage;
+
+        //snob
+        if (getLowestRessourceLevel(currentBuildLevel) > 25 && buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
+            return ids.snob
 
         //wall
         if (priorityWall || (getLowestRessourceLevel(currentBuildLevel) > 20 && getBuildDistance(ids.iron, ids.wall) >= 5 && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.wall, currentBuildLevel)))
@@ -1111,9 +1144,6 @@
         if (getBuildDistance(ids.iron, ids.market) > 15 && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
             return ids.market
 
-        //snob
-        if (getLowestRessourceLevel(currentBuildLevel) > 25 && buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
-            return ids.snob
 
         //main
         if (getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)

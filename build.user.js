@@ -1255,7 +1255,7 @@
     function canAfford(buildId) {
         const currentRessources = getCurrentRessources();
         const cost = getCost(buildId)
-        return currentRessources.wood >= cost.wood && currentRessources.iron >= cost.iron && currentRessources.stone >= cost.stone && currentRessources.population >= cost.population;
+        return currentRessources.wood >= cost.wood && currentRessources.iron >= cost.iron && currentRessources.stone >= cost.stone && currentRessources.maxPopulation - currentRessources.population >= cost.population;
     }
 
 

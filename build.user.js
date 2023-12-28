@@ -259,7 +259,7 @@
 
 
     function getBuildingMain() {
-        return BuildingMain ? BuildingMain : {
+        return BuildingMain || {
             "BUILD_ERROR_REQ": 1,
             "BUILD_ERROR_POP": 2,
             "BUILD_ERROR_QUEUE": 3,
@@ -1324,7 +1324,7 @@
 
     function getBuildButton(buildId, nextbuildLevel) {
         const selectorString = `main_buildlink_${buildId}_${nextbuildLevel}`;
-        const buildButton = document.getElementById(selectorString)
+        const buildButton = document.getElementById(selectorString);
 
         return buildButton;
     }

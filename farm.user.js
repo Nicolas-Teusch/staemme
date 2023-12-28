@@ -4,7 +4,7 @@
 // @version      1.2.2
 // @description  Fams selected villages.
 // @author       You
-// @match        https://*.die-staemme.de/game.php?village=*&screen=main
+// @match        https://*.die-staemme.de/game.php*screen=map*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de
 // @grant        none
 // ==/UserScript==

@@ -58,6 +58,7 @@ function stopFarming() {
 
 
 const containerDiv = document.createElement('div');
+containerDiv.style = 'display: flex; flex-direction: column; align-items: flex-start;';
 
 //heading
 const heading = document.createElement('h2');

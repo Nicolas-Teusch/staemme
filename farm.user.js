@@ -56,6 +56,9 @@ function stopFarming() {
 
 }
 
+
+const containerDiv = document.createElement('div');
+
 //heading
 const heading = document.createElement('h2');
 heading.textContent = 'Paste BB Code to Farm villages:';
@@ -90,9 +93,13 @@ toggleButton.onclick = () => {
 
 
 // adding heading and text area to content value
-contentValue.appendChild(heading);
-contentValue.appendChild(textArea);
-contentValue.appendChild(selectTemplate);
-contentValue.appendChild(toggleButton);
+
+
+
+containerDiv.appendChild(heading);
+containerDiv.appendChild(textArea);
+containerDiv.appendChild(selectTemplate);
+containerDiv.appendChild(toggleButton);
+contentValue.appendChild(containerDiv);
 
 })();

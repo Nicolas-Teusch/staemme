@@ -9,6 +9,8 @@
 // @grant        none
 // ==/UserScript==
 
+(function () {
+    'use strict';
 
 const contentValue = document.querySelector('#content_value');
 
@@ -93,3 +95,4 @@ contentValue.appendChild(textArea);
 contentValue.appendChild(selectTemplate);
 contentValue.appendChild(toggleButton);
 
+})();

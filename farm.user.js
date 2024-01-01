@@ -9,98 +9,153 @@
 // @grant        none
 // ==/UserScript==
 
+
+
+
+/*
+Interessante Variablen:
+
+TWMap
+TWMap.villages
+
+
+*/
 (function () {
     'use strict';
 
-const contentValue = document.querySelector('#content_value');
-
-let TargetBBCodes = [];
-let ptr = 0;
-let interval = null;
-
-function getNextTarget() {
-    if (TargetBBCodes
-        .length === 0) {
-        return null;
-    }
-
-    const BBCode = TargetBBCodes
-    [ptr];
-    ptr = (ptr + 1) % TargetBBCodes
-    .length;
-    return BBCode;
-}
+    const contentValue = document.querySelector('#content_value');
 
 
+    let ptr = 0;
+    let interval = null;
 
+    function getNextTarget() {
 
-function startFarming() {
-    console.log("start farming");
-    interval = setInterval(() => { 
-
-        console.log("checking for next target");
-        const target = getNextTarget();
-        if (target === null) {
-            return;
+        let TargetBBCodes = targets.value.split('\n').filter((line) => line !== '');
+        if (TargetBBCodes.length === 0) {
+            return null;
         }
-    
-        
-    
-    }, 1000);
-}
 
-function stopFarming() {
-    if (interval !== null) {
-        clearInterval(interval);
+        ptr = ptr % TargetBBCodes.length;
+
+        const BBCode = TargetBBCodes[ptr];
+
+        ptr++;
+
+        return BBCode;
     }
 
-}
-
-
-const containerDiv = document.createElement('div');
-containerDiv.style = 'display: flex; flex-direction: column; align-items: flex-start;';
-
-//heading
-const heading = document.createElement('h2');
-heading.textContent = 'Paste BB Code to Farm villages:';
-
-// adding text area to conent value
-const textArea = document.createElement('textarea');
-textArea.id = 'TargetBBCodes';
-
-
-// get troot tampelates
-const templates = document.querySelector('#troop_template_selection').innerHTML;
-
-// select template option
-const selectTemplate = document.createElement('select');
-selectTemplate.id = 'selectTemplate';
-selectTemplate.innerHTML = templates;
-
-
-// toggle button start/stop farming
-const toggleButton = document.createElement('button');
-toggleButton.id = 'toggleButton';
-toggleButton.textContent = 'Start Farming';
-toggleButton.onclick = () => {
-    if (toggleButton.textContent === 'Start Farming') {
-        toggleButton.textContent = 'Stop Farming';
-        startFarming();
-    } else {
-        toggleButton.textContent = 'Start Farming';
-        stopFarming();
+    function getSelectedTemplate() {
+        return selectTemplate.value
     }
-}
 
 
-// adding heading and text area to content value
+    function attackVillage(targetVillage, template) {
+        const villageId = game_data.village.id;
+        const world = game_data.world;
+
+        //const url = `https://${world}.die-staemme.de/game.php?village=${villageId}&screen=place&ajaxaction=popup_command`;
+        const url = `https://${world}.die-staemme.de/game.php?t=9225854&village=${villageId}&screen=place&x=511&y=483&spear=0&sword=0&axe=0&archer=0&spy=0&light=0&marcher=0&heavy=0&ram=0&catapult=0&knight=1&snob=0`
+
+        //https://des1.die-staemme.de/game.php?&village=373&screen=place&x=511&y=483&spear=0&sword=0&axe=0&archer=0&spy=0&light=0&marcher=0&heavy=0&ram=0&catapult=0&knight=1&snob=0
+        //https://dec1.die-staemme.de/game.php?t=9225854&village=19143&screen=place&target=47995&spear=0&sword=0&axe=0&archer=0&spy=0&light=0&marcher=0&heavy=0&ram=0&catapult=0&knight=&snob=0
+    }
 
 
 
-containerDiv.appendChild(heading);
-containerDiv.appendChild(textArea);
-containerDiv.appendChild(selectTemplate);
-containerDiv.appendChild(toggleButton);
-contentValue.appendChild(containerDiv);
+
+    function startFarming() {
+        console.log("start farming");
+        interval = setInterval(() => {
+
+            console.log("checking for next target");
+            const target = getNextTarget();
+            console.log("next target", target);
+
+            if (target === null || target === '') {
+                return;
+            }
+
+            // target village is passed like x|y
+            // village ids are stored in TWMAP.villages where xy is key
+            // id like "32310"
+            let xy = target.match(/\d+\|\d+/)[0].split('|').join('');
+            let e = TWMap.villages[xy].id;
+            CommandPopup.openRallyPoint({
+                target: e
+            })
+         
+            // popup should open
+            // now select template
+            let template = getSelectedTemplate();
+            TroopTemplates.useTemplate(template);
+
+
+            document.getElementById('target_attack').click();
+
+            while (!document.getElementById('troop_confirm_submit') {
+                console.log("waiting for troop_confirm_submit");
+            }
+
+            document.getElementById('troop_confirm_submit').click();
+
+
+
+        }, 1000);
+    }
+
+    function stopFarming() {
+        if (interval !== null) {
+            clearInterval(interval);
+        }
+
+    }
+
+
+    const containerDiv = document.createElement('div');
+    containerDiv.style = 'display: flex; flex-direction: column; align-items: flex-start;';
+
+    //heading
+    const heading = document.createElement('h2');
+    heading.textContent = 'Paste BB Code to Farm villages:';
+
+    // adding text area to conent value
+    const targets = document.createElement('textArea');
+    targets.id = 'TargetBBCodes';
+
+
+    // get troop tampelates
+    const templates = document.querySelector('#troop_template_selection').innerHTML;
+
+    // select template option
+    const selectTemplate = document.createElement('select');
+    selectTemplate.id = 'selectTemplate';
+    selectTemplate.innerHTML = templates;
+
+
+    // toggle button start/stop farming
+    const toggleButton = document.createElement('button');
+    toggleButton.id = 'toggleButton';
+    toggleButton.textContent = 'Start Farming';
+    toggleButton.onclick = () => {
+        if (toggleButton.textContent === 'Start Farming') {
+            toggleButton.textContent = 'Stop Farming';
+            startFarming();
+        } else {
+            toggleButton.textContent = 'Start Farming';
+            stopFarming();
+        }
+    }
+
+
+    // adding heading and text area to content value
+
+
+
+    containerDiv.appendChild(heading);
+    containerDiv.appendChild(targets);
+    containerDiv.appendChild(selectTemplate);
+    containerDiv.appendChild(toggleButton);
+    contentValue.appendChild(containerDiv);
 
 })();

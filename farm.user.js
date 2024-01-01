@@ -64,9 +64,9 @@ TWMap.villages
 
 
 
-    function startFarming() {
+    async function startFarming() {
         console.log("start farming");
-        interval = setInterval(() => {
+        interval = setInterval(async () => {
 
             console.log("checking for next target");
             const target = getNextTarget();
@@ -93,8 +93,14 @@ TWMap.villages
 
             document.getElementById('target_attack').click();
 
+
+            async function sleep(ms) {
+                setTimeout(() => { }, ms);
+            }
+         
             while (!document.getElementById('troop_confirm_submit')) {
                 console.log("waiting for troop_confirm_submit");
+                await sleep(1000);
             }
 
             document.getElementById('troop_confirm_submit').click();

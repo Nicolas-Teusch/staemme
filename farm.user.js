@@ -94,9 +94,7 @@ TWMap.villages
             document.getElementById('target_attack').click();
 
 
-            async function sleep(ms) {
-                setTimeout(() => { }, ms);
-            }
+            const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
          
             while (!document.getElementById('troop_confirm_submit')) {
                 console.log("waiting for troop_confirm_submit");

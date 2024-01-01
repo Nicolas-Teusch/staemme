@@ -93,7 +93,7 @@ TWMap.villages
 
             document.getElementById('target_attack').click();
 
-            while (!document.getElementById('troop_confirm_submit') {
+            while (!document.getElementById('troop_confirm_submit')) {
                 console.log("waiting for troop_confirm_submit");
             }
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Farm Script
 // @namespace    http://tampermonkey.net/
-// @version      1.2.2
+// @version      1.2.3
 // @description  Fams selected villages.
 // @author       You
 // @match        https://*.die-staemme.de/game.php*screen=map*
@@ -117,6 +117,12 @@ TWMap.villages
                 target: e
             })
          
+
+            while (!checkIfTroopsAreAvailable()) {
+                console.log("waiting for troops to be available");
+                await sleep(1000);
+            }
+
             // popup should open
             // now select template
             let template = getSelectedTemplate();
@@ -137,7 +143,7 @@ TWMap.villages
 
 
 
-        }, 10000);
+        }, 3000);
     }
 
     function stopFarming() {

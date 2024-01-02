@@ -50,6 +50,38 @@ TWMap.villages
     }
 
 
+    function checkIfTroopsAreAvailable() {
+        /*
+            {
+                "spear": "1287",
+                "sword": "213",
+                "axe": "0",
+                "archer": "0",
+                "spy": "0",
+                "light": "0",
+                "marcher": "0",
+                "heavy": "50",
+                "ram": "0",
+                "catapult": "0",
+                "knight": "1",
+                "snob": "0"
+            }
+        */
+        const currentUnits = TWMap.current_units
+        const selectedTemplateId = getSelectedTemplate();
+        const selectedTemplate = TroopTemplates.current[selectedTemplateId]
+        for(const [k,v] of Object.entries(selectedTemplate)) {
+            if(currentUnits[k] < v) {
+                return false;
+            }
+        }
+
+        return true
+
+
+    }
+
+
     function attackVillage(targetVillage, template) {
         const villageId = game_data.village.id;
         const world = game_data.world;
@@ -101,11 +133,11 @@ TWMap.villages
                 await sleep(1000);
             }
 
-            document.getElementById('troop_confirm_submit').click();
+            //document.getElementById('troop_confirm_submit').click();
 
 
 
-        }, 1000);
+        }, 10000);
     }
 
     function stopFarming() {

@@ -17,7 +17,7 @@
         "traverseVillages": true,
         "minFreeStoragePercentage": 10,
         "minFreePopulationPercentage": 10,
-        "maxMainBuildLevel": 20,
+        "maxMainBuildLevel": 25,
         "maxMarketBuildLevel": 20,
         "priorityWall": false,
         "nextRefresh": null,

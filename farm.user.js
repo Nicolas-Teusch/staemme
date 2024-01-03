@@ -78,8 +78,11 @@ TWMap.villages
 
             if(!(game_data.units.find((e) => e == k)))
                 continue;
-
-            if(document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0] < v) {
+            
+            const units = document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0]
+            requriedUnits = parseInt(v);
+            if(units < requriedUnits) {
+                console.log("not enough troops", k, v, "have", units);
                 return false;
             }
         }
@@ -212,5 +215,11 @@ TWMap.villages
     containerDiv.appendChild(selectTemplate);
     containerDiv.appendChild(toggleButton);
     contentValue.appendChild(containerDiv);
+
+    window.checkIfTroopsAreAvailable = checkIfTroopsAreAvailable;
+    window.startFarming = startFarming;
+    window.stopFarming = stopFarming;
+    window.getNextTarget = getNextTarget;
+    window.getSelectedTemplate = getSelectedTemplate;
 
 })();

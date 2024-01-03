@@ -1130,7 +1130,7 @@
             return ids.storage;
 
         //snob
-        if (buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
+        if (buildRequirementSatisfied(ids.snob, currentBuildLevel) && !isCurrentlyBuilding(ids.snob, currentBuildLevel) && !isMaxLevel(ids.snob, currentBuildLevel))
             return ids.snob
 
         //wall
@@ -1139,7 +1139,7 @@
 
 
         //statue
-        if (getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(ids.statue, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(ids.statue, currentBuildLevel) && !isCurrentlyBuilding(ids.statue, currentBuildLevel))
             return ids.statue;
 
         //barracks
@@ -1171,7 +1171,7 @@
 
 
         const mostNeededRessource = calculateMostNeededRessource();
-        if (getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(mostNeededRessource, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(mostNeededRessource, currentBuildLevel) && !isCurrentlyBuilding(mostNeededRessource, currentBuildLevel))
             return mostNeededRessource;
 
         //stone

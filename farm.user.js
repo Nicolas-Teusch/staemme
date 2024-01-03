@@ -128,12 +128,12 @@ TWMap.villages
             // waiting templates to be loaded
             while (!TroopTemplates.current) {
                 console.log("waiting for troop templates to be loaded");
-                sleep(100);
+                await sleep(1000);
             }
     
             while (!checkIfTroopsAreAvailable()) {
                 console.log("waiting for troops to be available");
-                sleep(100);
+                await sleep(1000);
             }
     
             // popup should open

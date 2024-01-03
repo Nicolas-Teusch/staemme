@@ -114,7 +114,6 @@ TWMap.villages
                 console.log("next target", target);
         
                 if (target === null || target === '') {
-                    
                     return;
                 }
         
@@ -128,9 +127,10 @@ TWMap.villages
                 })
             
                 // waiting templates to be loaded
-                while (!TroopTemplates.current) {
+                if (!TroopTemplates.current) {
                     console.log("waiting for troop templates to be loaded");
-                    await sleep(1000);
+                    await sleep(3000 + Math.random() * 1000);
+                    return;
                 }
         
                 while (!checkIfTroopsAreAvailable()) {

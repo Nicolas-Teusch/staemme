@@ -127,15 +127,15 @@ TWMap.villages
                 })
             
                 // waiting templates to be loaded
-                if (!TroopTemplates.current) {
+                while (!TroopTemplates.current) {
                     console.log("waiting for troop templates to be loaded");
-                    await sleep(3000 + Math.random() * 1000);
-                    return;
+                    await sleep(1000);
                 }
         
-                while (!checkIfTroopsAreAvailable()) {
-                    console.log("waiting for troops to be available");
-                    await sleep(1000);
+                if (!checkIfTroopsAreAvailable()) {
+                    console.log("not enough troops, check after next udpate");
+                    await sleep(3000 + Math.random() * 1000);
+                    return;
                 }
         
                 // popup should open

@@ -2,7 +2,7 @@
 // @name         Farm Script
 // @namespace    http://tampermonkey.net/
 // @version      1.2.3
-// @description  Fams selected villages.
+// @description  Farms selected villages.
 // @author       You
 // @match        https://*.die-staemme.de/game.php*screen=map*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de

@@ -1139,7 +1139,7 @@
 
 
         //statue
-        if (getLowestRessourceLevel(currentBuildLevel) >= 10 && !isMaxLevel(ids.statue, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 2 && !isMaxLevel(ids.statue, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && canBeBuild(ids.statue, currentBuildLevel))
             return ids.statue;
 
         //barracks

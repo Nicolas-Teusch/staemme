@@ -44,10 +44,6 @@ TWMap.villages
     
         const BBCode = TargetBBCodes[ptr];
 
-        // if the last attack was not executed dont continue to next target
-        if(!attackExecuted)
-            return BBCode;
-
         ptr++;
     
         return BBCode;

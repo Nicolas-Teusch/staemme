@@ -1109,10 +1109,6 @@
         return null;
     }
 
-    function canBeBuild(buildId, currentBuildLevel) {
-        return !!currentBuildLevel[buildId].currentLevel;
-    }
-
     function floor(number) {
         return Math.floor(number);
 
@@ -1155,16 +1151,16 @@
             return ids.smith;
 
         //garage
-        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && floor(getLowestRessourceLevel(currentBuildLevel) / 5) > currentBuildLevel.garage.currentLevel && !isMaxLevel(ids.garage, currentBuildLevel) && !isCurrentlyBuilding(ids.garage, currentBuildLevel) && buildRequirementSatisfied(ids.garage, currentBuildLevel))
             return ids.garage;
 
         //market
-        if (getBuildDistance(ids.iron, ids.market) > 15 && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
+        if ((getSanitisedCurrentLevel(ids.smith) == 20 || getBuildDistance(ids.iron, ids.market) > 15) && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.market, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
             return ids.market
 
 
         //main
-        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
+        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && !isCurrentlyBuilding(ids.main, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
             return ids.main
 
 

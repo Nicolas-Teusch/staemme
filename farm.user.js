@@ -145,9 +145,9 @@ TWMap.villages
         
                 document.getElementById('target_attack').click();
                 
-            
+                let waitCycle = 0;
                 while (!document.getElementById('troop_confirm_submit')) {
-                    let waitCycle = 0;
+                    
                     console.log("waiting for troop_confirm_submit");
                     await sleep(500);
                     if(waitCycle++ > 3) {

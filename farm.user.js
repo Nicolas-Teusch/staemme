@@ -74,6 +74,11 @@ TWMap.villages
         const selectedTemplateId = getSelectedTemplate();
         const selectedTemplate = TroopTemplates.current[selectedTemplateId]
         for(const [k,v] of Object.entries(selectedTemplate)) {
+            console.log(k,v);
+
+            if(!(game_data.units.find((e) => e == k)))
+                continue;
+
             if(currentUnits[k] < v || document.getElementById(`units_entry_all_${k}`).innerHTML.match(/\d+/)[0] < v) {
                 return false;
             }

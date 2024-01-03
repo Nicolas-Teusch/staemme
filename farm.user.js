@@ -75,7 +75,6 @@ TWMap.villages
                 "snob": "0"
             }
         */
-        const currentUnits = TWMap.current_units
         const selectedTemplateId = getSelectedTemplate();
         const selectedTemplate = TroopTemplates.current[selectedTemplateId]
         for(const [k,v] of Object.entries(selectedTemplate)) {
@@ -84,7 +83,7 @@ TWMap.villages
             if(!(game_data.units.find((e) => e == k)))
                 continue;
 
-            if(currentUnits[k] < v || document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0] < v) {
+            if(document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0] < v) {
                 return false;
             }
         }
@@ -127,6 +126,7 @@ TWMap.villages
                 })
             
                 // waiting templates to be loaded
+                // there are also troop templates in TWMap.troop_templates
                 while (!TroopTemplates.current) {
                     console.log("waiting for troop templates to be loaded");
                     await sleep(1000);

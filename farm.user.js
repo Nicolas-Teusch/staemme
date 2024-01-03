@@ -31,6 +31,7 @@ TWMap.villages
 
     let ptr = 0;
     let interval = null;
+    let attackExecuted = true;
     
     function getNextTarget() {
     
@@ -42,7 +43,11 @@ TWMap.villages
         ptr = ptr % TargetBBCodes.length;
     
         const BBCode = TargetBBCodes[ptr];
-    
+
+        // if the last attack was not executed dont continue to next target
+        if(!attackExecuted)
+            return BBCode;
+
         ptr++;
     
         return BBCode;
@@ -79,7 +84,7 @@ TWMap.villages
             if(!(game_data.units.find((e) => e == k)))
                 continue;
 
-            if(currentUnits[k] < v || document.getElementById(`units_entry_all_${k}`).innerHTML.match(/\d+/)[0] < v) {
+            if(currentUnits[k] < v || document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0] < v) {
                 return false;
             }
         }
@@ -96,12 +101,18 @@ TWMap.villages
     async function startFarming() {
         console.log("start farming");
         interval = setInterval(async () => {
-    
+
+            // if the last attack was not executed dont continue to next target
+            if(!attackExecuted)
+                return;
+
+            attackExecuted = false;
             console.log("checking for next target");
             const target = getNextTarget();
             console.log("next target", target);
     
             if (target === null || target === '') {
+                attackExecuted = true;
                 return;
             }
     
@@ -117,7 +128,7 @@ TWMap.villages
     
             while (!checkIfTroopsAreAvailable()) {
                 console.log("waiting for troops to be available");
-                await sleep(1000);
+                sleep(1000);
             }
     
             // popup should open
@@ -135,7 +146,7 @@ TWMap.villages
             }
     
             document.getElementById('troop_confirm_submit').click();
-    
+            attackExecuted = true;
     
     
         }, 3000);
@@ -148,7 +159,9 @@ TWMap.villages
     
     }
 
-
+    document.onkeyup = function (e) {
+        e.key === 'Escape' && stopFarming();
+    }
     const containerDiv = document.createElement('div');
     containerDiv.style = 'display: flex; flex-direction: column; align-items: flex-start;';
 

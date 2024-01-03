@@ -80,7 +80,7 @@ TWMap.villages
                 continue;
             
             const units = document.getElementById(`units_entry_all_${k}`)?.innerHTML.match(/\d+/)[0]
-            requriedUnits = parseInt(v);
+            const requriedUnits = parseInt(v);
             if(units < requriedUnits) {
                 console.log("not enough troops", k, v, "have", units);
                 return false;

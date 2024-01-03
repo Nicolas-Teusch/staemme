@@ -1143,11 +1143,11 @@
             return ids.statue;
 
         //barracks
-        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 10 && (floor(getLowestRessourceLevel(currentBuildLevel) / 2) > currentBuildLevel.barracks.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.barracks.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && !isMaxLevel(ids.barracks, currentBuildLevel) && buildRequirementSatisfied(ids.barracks, currentBuildLevel))
             return ids.barracks;
 
         //stable
-        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 3) > currentBuildLevel.stable.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
+        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && (floor(getLowestRessourceLevel(currentBuildLevel) / 2) > currentBuildLevel.stable.currentLevel) || (getLowestRessourceLevel(currentBuildLevel) > 25 && getLowestRessourceLevel(currentBuildLevel) / 2 > currentBuildLevel.stable.currentLevel) || ressourcesMaxed(currentBuildLevel) && !isMaxLevel(ids.stable, currentBuildLevel) && !isCurrentlyBuilding(ids.farm, currentBuildLevel) && buildRequirementSatisfied(ids.stable, currentBuildLevel))
             return ids.stable;
 
         //smith

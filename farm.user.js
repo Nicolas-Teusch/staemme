@@ -101,58 +101,62 @@ TWMap.villages
     async function startFarming() {
         console.log("start farming");
         interval = setInterval(async () => {
-
             // if the last attack was not executed dont continue to next target
             if(!attackExecuted)
-                return;
-
-            attackExecuted = false;
-            console.log("checking for next target");
-            const target = getNextTarget();
-            console.log("next target", target);
-    
-            if (target === null || target === '') {
-                attackExecuted = true;
-                return;
-            }
-    
-            // target village is passed like x|y
-            // village ids are stored in TWMAP.villages where xy is key
-            // id like "32310"
-            let xy = target.match(/\d+\|\d+/)[0].split('|').join('');
-            let e = TWMap.villages[xy].id;
-            CommandPopup.openRallyPoint({
-                target: e
-            })
-         
-            // waiting templates to be loaded
-            while (!TroopTemplates.current) {
-                console.log("waiting for troop templates to be loaded");
-                await sleep(1000);
-            }
-    
-            while (!checkIfTroopsAreAvailable()) {
-                console.log("waiting for troops to be available");
-                await sleep(1000);
-            }
-    
-            // popup should open
-            // now select template
-            let template = getSelectedTemplate();
-            TroopTemplates.useTemplate(template);
-    
-    
-            document.getElementById('target_attack').click();
+            return;
             
-         
-            while (!document.getElementById('troop_confirm_submit')) {
-                console.log("waiting for troop_confirm_submit");
-                await sleep(1000);
+            
+            try {
+                        
+                attackExecuted = false;
+                console.log("checking for next target");
+                const target = getNextTarget();
+                console.log("next target", target);
+        
+                if (target === null || target === '') {
+                    
+                    return;
+                }
+        
+                // target village is passed like x|y
+                // village ids are stored in TWMAP.villages where xy is key
+                // id like "32310"
+                let xy = target.match(/\d+\|\d+/)[0].split('|').join('');
+                let e = TWMap.villages[xy].id;
+                CommandPopup.openRallyPoint({
+                    target: e
+                })
+            
+                // waiting templates to be loaded
+                while (!TroopTemplates.current) {
+                    console.log("waiting for troop templates to be loaded");
+                    await sleep(1000);
+                }
+        
+                while (!checkIfTroopsAreAvailable()) {
+                    console.log("waiting for troops to be available");
+                    await sleep(1000);
+                }
+        
+                // popup should open
+                // now select template
+                let template = getSelectedTemplate();
+                TroopTemplates.useTemplate(template);
+        
+        
+                document.getElementById('target_attack').click();
+                
+            
+                while (!document.getElementById('troop_confirm_submit')) {
+                    console.log("waiting for troop_confirm_submit");
+                    await sleep(1000);
+                }
+        
+                document.getElementById('troop_confirm_submit').click();
+                
+            } finally {
+                attackExecuted = true;
             }
-    
-            document.getElementById('troop_confirm_submit').click();
-            attackExecuted = true;
-    
     
         }, 3000);
     }

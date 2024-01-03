@@ -139,7 +139,7 @@ TWMap.villages
                 await sleep(1000);
             }
 
-            //document.getElementById('troop_confirm_submit').click();
+            document.getElementById('troop_confirm_submit').click();
 
 
 

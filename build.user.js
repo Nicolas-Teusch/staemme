@@ -1155,7 +1155,7 @@
             return ids.garage;
 
         //market
-        if ((getSanitisedCurrentLevel(ids.market) == 20 || getBuildDistance(ids.iron, ids.market) > 15) && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.market, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
+        if ((getSanitisedCurrentLevel(currentBuildLevel, ids.market) == 20 || getBuildDistance(ids.iron, ids.market) > 15) && buildRequirementSatisfied(ids.market, currentBuildLevel) && !isCurrentlyBuilding(ids.market, currentBuildLevel) && currentBuildLevel.market.currentLevel < maxMarketBuildLevel)
             return ids.market
 
 

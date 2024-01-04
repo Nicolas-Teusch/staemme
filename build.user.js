@@ -1160,7 +1160,7 @@
 
 
         //main
-        if (getLowestRessourceLevel(currentBuildLevel) >= 15 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 5 && !isCurrentlyBuilding(ids.main, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
+        if (getLowestRessourceLevel(currentBuildLevel) >= 5 && getAvaerageRessourceLevel(currentBuildLevel) - currentBuildLevel.main.currentLevel >= 3 && !isCurrentlyBuilding(ids.main, currentBuildLevel) && currentBuildLevel.main.currentLevel < maxMainBuildLevel)
             return ids.main
 
 

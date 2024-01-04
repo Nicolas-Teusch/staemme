@@ -74,7 +74,7 @@ TWMap.villages
         const selectedTemplateId = getSelectedTemplate();
         const selectedTemplate = TroopTemplates.current[selectedTemplateId]
         for(const [k,v] of Object.entries(selectedTemplate)) {
-            console.log(k,v);
+           
 
             if(!(game_data.units.find((e) => e == k)))
                 continue;
@@ -128,7 +128,7 @@ TWMap.villages
                 // there are also troop templates in TWMap.troop_templates
                 while (!TroopTemplates.current) {
                     console.log("waiting for troop templates to be loaded");
-                    await sleep(1000);
+                    await sleep(300);
                 }
         
                 if (!checkIfTroopsAreAvailable()) {
@@ -149,7 +149,7 @@ TWMap.villages
                 while (!document.getElementById('troop_confirm_submit')) {
                     
                     console.log("waiting for troop_confirm_submit");
-                    await sleep(500);
+                    await sleep(100);
                     if(waitCycle++ > 3) {
                         console.log("waited too long for troop_confirm_submit");
                         return;

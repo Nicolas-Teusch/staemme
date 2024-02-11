@@ -14,44 +14,55 @@
 (function () {
     'use strict';
 
-    let contentContainer = document.getElementById('content_value');
-
-        // create radio buttons to select farm template
-        let html = `
-        <div style="display: flex; flex-direction: row; gap: 5px;">
-            <div name="autofarm" value="A" class="farm_village_17067 farm_icon farm_icon_a" onclick="select('a')"></div>
-            <div name="autofarm" value="B" class="farm_village_17067 farm_icon farm_icon_b" onclick="select('b')"></div>
-            <div name="autofarm" value="C" class="farm_village_17067 farm_icon farm_icon_c" onclick="select('c')"></div>
-            <div type="button" class="btn" id="startStop" onclick="startStop()">Start</div>
-        </div>
-    `;
-
-
     let option = null;
     let isRunning = false;
-
-    let options = document.getElementsByName('autofarm');
+    let contentContainer = document.getElementById('content_value');
     function select(option) {
         console.log(option);
+        let options = document.getElementsByName('autofarm');
         options.forEach(e => {
             e.style = e.value === option ? null : 'border: 1px solid green';
         });
     }
 
-    function startStop() {
+    function startStop(e) {
+        e.preventDefault();
+        
         isRunning = !isRunning;
         let btn = document.getElementById('startStop');
-        if(isRunning) {
+        if (isRunning) {
             start();
             btn.innerHTML = 'Stop';
-        }   else {
+        } else {
             stop();
             btn.innerHTML = 'Start';
         }
-
-
     }
 
-    contentContainer.innerHTML += html;
+
+    let container = document.createElement('div');
+    container.style = 'display: flex; flex-direction: column; gap: 5px;';
+
+    for(let i = 0; i < 3; i++) {
+        let div = document.createElement('div');
+        div.classList.add('farm_village_17067');
+        div.classList.add('farm_icon');
+        div.classList.add('farm_icon_' + String.fromCharCode(97 + i));
+        div.onclick = () => {
+            select(String.fromCharCode(97 + i));
+        }
+
+        container.appendChild(div);
+    }
+
+    let startStopBtn = document.createElement('button');
+    startStopBtn.id = 'startStop';
+    startStopBtn.innerHTML = 'Start';
+    startStopBtn.onclick = startStop;
+    startStopBtn.classList.add('btn');
+    container.appendChild(startStopBtn);
+
+
+    contentContainer.appendChild(container);
 
 })();

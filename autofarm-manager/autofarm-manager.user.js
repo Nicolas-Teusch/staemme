@@ -35,15 +35,14 @@
     function farm() {
         console.log('farming');
         console.log(option);
-
-        let targetCounter = 2;
         let plunderList = document.getElementById('plunder_list');
         let targets = plunderList.getElementsByTagName('tr');
         
         //skip invalid targets
         let target = null;
         for(const element of targets) {
-            if(element.getElementsByClassName('farm_icon_' + option)[0].style['display'] === 'none') {
+            let farmButton = element.getElementsByClassName('farm_icon_' + option)[0]
+            if(!farmButton || farmButton.style['display'] === 'none') {
                 continue;
             } else {
                 target = element;
@@ -56,16 +55,16 @@
             return;
         }
         console.log(target);
-        let btn = target.getElementsByClassName('farm_icon_' + option)[0];
+       
 
-        if(btn.classList.contains('farm_icon_disabled')) {
+        if(farmButton.classList.contains('farm_icon_disabled')) {
             console.log('Farming this target is disabled');
             return;
         }
 
-        if (btn) {
+        if (farmButton) {
             console.log('clicking button');
-            btn.click();
+            farmButton.click();
         }
     }
 

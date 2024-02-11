@@ -17,13 +17,14 @@
     let option = null;
     let isRunning = false;
     let contentContainer = document.getElementById('content_value');
-    function select(option) {
+    function select(div, option) {
         console.log(option);
         let options = document.getElementsByName('autofarm');
         options.forEach(e => {
-            console.log(e)
-            e.style = e.value === option ? null : 'box-shadow: 0 0 10px #32cd4b;';
+            e.style = null;
         });
+
+        div.style = 'box-shadow: 0 0 10px #32cd4b;'
     }
 
     function startStop(e) {
@@ -51,7 +52,7 @@
         div.classList.add('farm_icon');
         div.classList.add('farm_icon_' + String.fromCharCode(97 + i));
         div.onclick = () => {
-            select(String.fromCharCode(97 + i));
+            select(div, String.fromCharCode(97 + i));
         }
 
         container.appendChild(div);

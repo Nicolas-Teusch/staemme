@@ -32,7 +32,8 @@
 
 
     function farm() {
-        let targets = document.getElementById('plunder_list')?.getElementsByClassName('tr');
+        let plunderList = document.getElementById('plunder_list');
+        let targets = plunderList.getElementsByTagName('tr');
         let target = targets[2];
             let btn = target.getElementsByClassName('farm_icon_' + option)[0];
             if (btn) {

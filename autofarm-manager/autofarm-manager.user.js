@@ -14,13 +14,13 @@
 (function () {
     'use strict';
 
-    this.option = null;
+    let option = null;
     let isRunning = false;
     let contentContainer = document.getElementById('content_value');
     let timer = null;
-    function select(div, option) {
+    function select(div, o) {
         console.log(0);
-        this.option = option;
+        option = o;
         let options = document.getElementsByName('autofarm');
         options.forEach(e => {
             e.style = null;
@@ -34,12 +34,12 @@
 
     function farm() {
         console.log('farming');
-        console.log(this.option);
+        console.log(option);
         let plunderList = document.getElementById('plunder_list');
         let targets = plunderList.getElementsByTagName('tr');
         let target = targets[2];
         console.log(target);
-        let btn = target.getElementsByClassName('farm_icon_' + this.option)[0];
+        let btn = target.getElementsByClassName('farm_icon_' + option)[0];
         if (btn) {
             console.log('clicking button');
             btn.click();

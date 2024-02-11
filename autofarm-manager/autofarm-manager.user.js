@@ -35,11 +35,34 @@
     function farm() {
         console.log('farming');
         console.log(option);
+
+        let targetCounter = 2;
         let plunderList = document.getElementById('plunder_list');
         let targets = plunderList.getElementsByTagName('tr');
-        let target = targets[2];
+        
+        //skip invalid targets
+        let target = null;
+        for(const element of targets) {
+            if(element.getElementsByClassName('farm_icon_' + option)[0].style.contains('display: none')) {
+                continue;
+            } else {
+                target = element;
+                break;
+            }
+        }
+        
+        if(target === null) {
+            console.log('No valid targets');
+            return;
+        }
         console.log(target);
         let btn = target.getElementsByClassName('farm_icon_' + option)[0];
+
+        if(btn.classList.contains('farm_icon_disabled')) {
+            console.log('Farming this target is disabled');
+            return;
+        }
+
         if (btn) {
             console.log('clicking button');
             btn.click();

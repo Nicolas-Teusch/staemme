@@ -55,16 +55,16 @@
             return;
         }
         console.log(target);
-       
+        let btn = target.getElementsByClassName('farm_icon_' + option)[0];
 
-        if(farmButton.classList.contains('farm_icon_disabled')) {
+        if(btn.classList.contains('farm_icon_disabled')) {
             console.log('Farming this target is disabled');
             return;
         }
 
-        if (farmButton) {
+        if (btn) {
             console.log('clicking button');
-            farmButton.click();
+            btn.click();
         }
     }
 

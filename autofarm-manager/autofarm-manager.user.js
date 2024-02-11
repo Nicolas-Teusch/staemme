@@ -10,24 +10,48 @@
 // @grant        none
 // ==/UserScript==
 
-let contentContainer = document.getElementById('content_value');
 
-// create radio buttons to select farm template
-let html = `
-<div name="autofarm" value="A" class="farm_village_17067 farm_icon farm_icon_a" onclick="select('a')"></div>
-<div name="autofarm" value="B" class="farm_village_17067 farm_icon farm_icon_b" onclick="select('b')"></div>
-<div name="autofarm" value="C" class="farm_village_17067 farm_icon farm_icon_c" onclick="select('c')"></div>
-`;
+(function () {
+    'use strict';
 
+    let contentContainer = document.getElementById('content_value');
 
-let option = null;
-let options = document.getElementsByName('autofarm');
-function select(option){
-    console.log(option);
-    options.forEach(e => {
-        e.style = e.value === option ? null : 'border: 1px solid green';
-    });
-}
+        // create radio buttons to select farm template
+        let html = `
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+            <div name="autofarm" value="A" class="farm_village_17067 farm_icon farm_icon_a" onclick="select('a')"></div>
+            <div name="autofarm" value="B" class="farm_village_17067 farm_icon farm_icon_b" onclick="select('b')"></div>
+            <div name="autofarm" value="C" class="farm_village_17067 farm_icon farm_icon_c" onclick="select('c')"></div>
+            <div type="button" class="btn" id="startStop" onclick="startStop()">Start</div>
+        </div>
+    `;
 
 
-contentContainer.innerHTML += html;
+    let option = null;
+    let isRunning = false;
+
+    let options = document.getElementsByName('autofarm');
+    function select(option) {
+        console.log(option);
+        options.forEach(e => {
+            e.style = e.value === option ? null : 'border: 1px solid green';
+        });
+    }
+
+    function startStop() {
+        isRunning = !isRunning;
+        let btn = document.getElementById('startStop');
+        if(isRunning) {
+            start();
+            btn.innerHTML = 'Stop';
+        }   else {
+            stop();
+            btn.innerHTML = 'Start';
+        }
+
+
+    }
+
+    contentContainer.innerHTML += html;
+
+})();

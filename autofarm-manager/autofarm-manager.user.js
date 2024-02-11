@@ -21,7 +21,8 @@
         console.log(option);
         let options = document.getElementsByName('autofarm');
         options.forEach(e => {
-            e.style = e.value === option ? null : 'border: 1px solid green';
+            console.log(e)
+            e.style = e.value === option ? null : 'box-shadow: 0 0 10px #32cd4b;';
         });
     }
 

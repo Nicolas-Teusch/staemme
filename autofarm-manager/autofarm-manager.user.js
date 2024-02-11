@@ -1,3 +1,15 @@
+
+// ==UserScript==
+// @name         Attack Manager Farmmanager
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Farms automatically using farm manager.
+// @author       Xellent_DE
+// @match        https://*.die-staemme.de/game.php?village=*&screen=overview_villages
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de
+// @grant        none
+// ==/UserScript==
+
 let contentContainer = document.getElementById('contentContainer');
 
 // create radio buttons to select farm template

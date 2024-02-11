@@ -46,7 +46,7 @@
 
     for(let i = 0; i < 3; i++) {
         let div = document.createElement('div');
-        div.name = 'autofarm';
+        div.setAttribute('name', 'autofarm');
         div.classList.add('farm_village_17067');
         div.classList.add('farm_icon');
         div.classList.add('farm_icon_' + String.fromCharCode(97 + i));

@@ -10,7 +10,7 @@
 // @grant        none
 // ==/UserScript==
 
-let contentContainer = document.getElementById('contentContainer');
+let contentContainer = document.getElementById('content_value');
 
 // create radio buttons to select farm template
 let html = `

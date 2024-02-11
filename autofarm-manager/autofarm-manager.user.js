@@ -33,6 +33,7 @@
 
     function farm() {
         console.log('farming');
+        console.log(option);
         let plunderList = document.getElementById('plunder_list');
         let targets = plunderList.getElementsByTagName('tr');
         let target = targets[2];

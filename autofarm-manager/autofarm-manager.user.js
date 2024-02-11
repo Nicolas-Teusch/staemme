@@ -17,6 +17,7 @@
     let option = null;
     let isRunning = false;
     let contentContainer = document.getElementById('content_value');
+    let timer = null;
     function select(div, option) {
         console.log(option);
         let options = document.getElementsByName('autofarm');
@@ -27,16 +28,28 @@
         div.style = 'box-shadow: 0 0 10px #32cd4b;'
     }
 
+
+
+
+    function farm() {
+        let targets = document.getElementById('plunder_list')?.getElementsByClassName('tr');
+        let target = targets[2];
+            let btn = target.getElementsByClassName('farm_icon_' + option)[0];
+            if (btn) {
+                btn.click();
+            }
+    }
+
     function startStop(e) {
         e.preventDefault();
 
         isRunning = !isRunning;
         let btn = document.getElementById('startStop');
         if (isRunning) {
-            start();
+            timer = setInterval(farm, Math.random() * 3000 + 1000);
             btn.innerHTML = 'Stop';
         } else {
-            stop();
+            clearInterval(timer);
             btn.innerHTML = 'Start';
         }
     }
@@ -45,7 +58,7 @@
     let container = document.createElement('div');
     container.style = 'display: flex; flex-direction: row; gap: 5px;';
 
-    for(let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
         let div = document.createElement('div');
         div.setAttribute('name', 'autofarm');
         div.classList.add('farm_village_17067');

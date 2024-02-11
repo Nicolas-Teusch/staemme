@@ -5,7 +5,7 @@
 // @version      0.1
 // @description  Farms automatically using farm manager.
 // @author       Xellent_DE
-// @match        https://*.die-staemme.de/game.php?village=*&screen=overview_villages
+// @match        https://*.die-staemme.de/game.php?village=*&screen=am_farm
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=die-staemme.de
 // @grant        none
 // ==/UserScript==

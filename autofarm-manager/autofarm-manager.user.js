@@ -43,14 +43,14 @@
         //skip invalid targets
         let target = null;
         for(const element of targets) {
-            if(element.getElementsByClassName('farm_icon_' + option)[0].style.contains('display: none')) {
+            if(element.getElementsByClassName('farm_icon_' + option)[0].style['display'] === 'none') {
                 continue;
             } else {
                 target = element;
                 break;
             }
         }
-        
+
         if(target === null) {
             console.log('No valid targets');
             return;
